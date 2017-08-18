@@ -11913,7 +11913,7 @@ div#notebook {
 <li><code>testing</code>: testing' is set to True if testing trials are being used once training trials have completed.</li>
 </ul>
 <h4 id="In-the-environment.py-Python-file,-what-Environment-class-function-is-called-when-an-agent-performs-an-action?">In the environment.py Python file, what Environment class function is called when an agent performs an action?<a class="anchor-link" href="#In-the-environment.py-Python-file,-what-Environment-class-function-is-called-when-an-agent-performs-an-action?">&#182;</a></h4><ul>
-<li>Agent, Environment</li>
+<li>The classes called are Agent, Environment. The functions are: <code>create_agent</code>(Create the driving agent),  <code>set_primary_agent</code>(Follow the driving agent), <code>get_deadline</code>(Remaining deadline) , <code>act</code>(receive a reward)</li>
 </ul>
 <h4 id="In-the-simulator.py-Python-file,-what-is-the-difference-between-the-'render_text()'-function-and-the-'render()'-function?">In the simulator.py Python file, what is the difference between the 'render_text()' function and the 'render()' function?<a class="anchor-link" href="#In-the-simulator.py-Python-file,-what-is-the-difference-between-the-'render_text()'-function-and-the-'render()'-function?">&#182;</a></h4><ul>
 <li><code>render_text()</code> is the non-GUI render display of the simulation.</li>
@@ -11925,6 +11925,7 @@ div#notebook {
 
 <pre><code># Next check if destination is cardinally East or West of location
 # Finally, check if destination is cardinally North or South of location</code></pre>
+<p>From the comments above we can see that, the East-West function comes first.</p>
 
 </div>
 </div>
@@ -13621,9 +13622,10 @@ kiRJkiTVwmBKkiRJkiRJtfj/gaVRSV3ahkEAAAAASUVORK5CYII=
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong></p>
-<h5 id="How-frequently-is-the-driving-agent-making-bad-decisions?-How-many-of-those-bad-decisions-cause-accidents?">How frequently is the driving agent making bad decisions? How many of those bad decisions cause accidents?<a class="anchor-link" href="#How-frequently-is-the-driving-agent-making-bad-decisions?-How-many-of-those-bad-decisions-cause-accidents?">&#182;</a></h5><p>The driving agent makes a bad decision in the 35% &lt; frequency &lt; 43%. 0% of these bad decision causes bad accidents.</p>
+<h5 id="How-frequently-is-the-driving-agent-making-bad-decisions?-How-many-of-those-bad-decisions-cause-accidents?">How frequently is the driving agent making bad decisions? How many of those bad decisions cause accidents?<a class="anchor-link" href="#How-frequently-is-the-driving-agent-making-bad-decisions?-How-many-of-those-bad-decisions-cause-accidents?">&#182;</a></h5><p>The driving agent makes a bad decision in the 35% &lt; frequency &lt; 43%. between 4%-9% of these bad decision causes bad accidents.</p>
 <h5 id="Given-that-the-agent-is-driving-randomly,-does-the-rate-of-reliability-make-sense?">Given that the agent is driving randomly, does the rate of reliability make sense?<a class="anchor-link" href="#Given-that-the-agent-is-driving-randomly,-does-the-rate-of-reliability-make-sense?">&#182;</a></h5><p>Yes, The rate of reliability is between 10% and 20%. Which is not reliable.</p>
 <h5 id="What-kind-of-rewards-is-the-agent-receiving-for-its-actions?-Do-the-rewards-suggest-it-has-been-penalized-heavily?">What kind of rewards is the agent receiving for its actions? Do the rewards suggest it has been penalized heavily?<a class="anchor-link" href="#What-kind-of-rewards-is-the-agent-receiving-for-its-actions?-Do-the-rewards-suggest-it-has-been-penalized-heavily?">&#182;</a></h5><p>The agent is receiving a bad reward between -6.0 and -4. Yes negative reward means that it has been penalized.</p>
+<h5 id="As-the-number-of-trials-increases,-does-the-outcome-of-results-change-significantly?">As the number of trials increases, does the outcome of results change significantly?<a class="anchor-link" href="#As-the-number-of-trials-increases,-does-the-outcome-of-results-change-significantly?">&#182;</a></h5><p>As the number of trials increases, the outcome of results does not change significantly.</p>
 <h5 id="Would-this-Smartcab-be-considered-safe-and/or-reliable-for-its-passengers?-Why-or-why-not?">Would this Smartcab be considered safe and/or reliable for its passengers? Why or why not?<a class="anchor-link" href="#Would-this-Smartcab-be-considered-safe-and/or-reliable-for-its-passengers?-Why-or-why-not?">&#182;</a></h5><p>This smartcab is not safe and reliable. Because both reliability and safety are F which mean that <em>Agent causes at least one major accident, such as driving through a red light with cross-traffic.</em> and <em>Agent fails to reach the destination on time
 for at least 60% of trips.</em></p>
 
@@ -18493,21 +18495,21 @@ lIiTAAAAAElFTkSuQmCC
 <li>The policy for the smartcab is to Maximize the driving agent's safety and reliability. Which mean that, at each state the smarcab chose the action that give the maximum reward. This goal was reached as the Agent commits no traffic violations, and always chooses the correct action and Agent reaches the destination in time for 100% of trips.</li>
 <li>Yes the policy is correct for all the given state as our reliability and safety was 100%. But when the training number is small(the agent has not learn  enough) the are a few differences for the expected value.</li>
 <li>e.g: 
-<pre><code>('right', 'green', 'left', 'right', 'right')
+<pre><code>('right', 'green', 'forward', 'left', 'right')
 -- forward : 0.00
--- right : 0.00
+-- right : 1.27
 -- None : 0.00
--- left : 0.57</code></pre>
-The light is green which means that, the smartcab can travel, however the intended direction is right so the best direction to travel is left. This action receive the hight reward by the agent. The agent has choosen the optimal policy.</li>
+-- left : -9.81</code></pre>
+The light is green and the waypoint is right, and the agent choose to follow the waypoint direction with the highest reward(right). The agent has choosen the optimal policy.</li>
 <li><p>The smartcab does not learn the optimal policy at 
 e.g:</p>
 
-<pre><code>('left', 'red', None, 'left', 'left')
--- forward : -9.90
--- right : 0.50
+<pre><code>('left', 'green', 'forward', 'right', 'left')
+-- forward : 0.00
+-- right : 0.38
 -- None : 0.00
--- left : -9.02</code></pre>
-<p>The color light is red, which means that the smartcab is not allowed to travel. But the agent chose to move to the right direction as the right direction receive the hight reward. This will not cause accident as the intended direction was left, but this a small violation of the policy.</p>
+-- left : -9.62</code></pre>
+<p>The color light is green, and the waypoint is left, with oncoming to forward. The smartcab agent travel to the righ which is not an optimal policy.</p>
 </li>
 </ol>
 
